@@ -7,7 +7,7 @@ body {
     display: flex;
     justify-content: center; /* centers horizontally */
     align-items: center; /* centers vertically */
-    background-color: #f5e6c4; /* fallback beige color */
+    background-color: #b8a885; /* fallback beige color */
     background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
     background-repeat: repeat;
     background-size: auto;
