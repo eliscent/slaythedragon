@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css">
+    <title>Slay the Dragon!</title>
+</head>
+<body>
+<main class="task-tables">
+    <section class="task-table easy" id="table-easy">
+        <h2>
+            <span class="label">Everyday Quests</span>
+            <span class="tag">(Easy)</span>
+        </h2>
+        <p class="subtitle">Quick tasks that chip away at the dragon</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Damage</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+
+    <section class="task-table medium" id="table-medium">
+        <h2>
+            <span class="label">Heroic Housekeeping</span>
+            <span class="tag">(Medium)</span>
+        </h2>
+        <p class="subtitle">Solid strikes that deal a chunk of HP</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Damage</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+
+        <section class="task-table hard" id="table-hard">
+        <h2>
+            <span class="label">Dragon-Slaying Duties</span>
+            <span class="tag">(Hard)</span>
+        </h2>
+        <p class="subtitle">Big efforts that deal some serious damage</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Damage</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+</main>
+
+<script>
+    
+    //Task data
+    const taskData = {
+        easy: [
+            { task "Make your bed", dmg: "10" }
+            { task "Put dishes into the dishwasher or sink", dmg: "10" }
+            { task "Wipe down the desk", dmg: "10" }
+            { task "Take the trash out", dmg: "10" }
+        ],
+        medium: [ 
+            { task "Kitchen counters", dmg: "20" }
+            { task "Do the dishes", dmg: "20" }
+            { task "Bathroom counters" dmg: "20" }
+            { task "Change bedsheets" dmg: "20" }
+        ]
+        hard: [
+            { task "Mop the floors", dmg: "40" }
+            { task "Vacuum the floors", dmg: "40" }
+            { task "Deep-clean the bathroom", dmg: "50" }
+            { task "Grocery shop", dmg: "30" }
+            { task "Declutter an area", dmg: "40" }
+        ]
+    };
+
+    function renderTable(sectionId, difficultyKey) {
+        const section = document.getElementById(sectionId);
+        const tbody = section.querySelector("tbody");
+        const rows = taskData[difficultyKey]
+            .map(item => {
+                return `
+                <tr>
+                    <td>${item.task}</td>
+                    <td>
+                        <span class="damage-pill ${difficultyKey}">
+                        <span class="value">${item.dmg}</span>
+                        </span>
+                    </td>
+                </tr>
+            `;
+            })
+        .join("");
+        tbody.innerHTML = rows;
+    }
+
+    renderTable("table-easy", "easy");
+    renderTable("table-medium", "medium");
+    renderTable("table-hard", "hard");
+
+</script>
+    
+</body>
+</html>
+
