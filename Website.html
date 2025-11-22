@@ -2,8 +2,142 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="style.css">
     <title>Slay the Dragon!</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+
+body {
+    margin: 0;
+    padding: 2rem;
+    justify-content: center;
+    display: flex;
+    background-color: #b8a885; /* fallback beige color */
+    background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+    background-repeat: repeat;
+    background-size: auto;
+    font-family: 'MedievalSharp', cursive;
+}
+#comingsoon {
+    font-size: 2.5rem;
+    color: #3b2f2f;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+    text-align: center;
+}
+.task-tables {
+    width: 100%;
+    max-width: 900px;
+    display: grid;
+    gap: 1.5rem;
+}
+.task-table {
+    border-radius: 1rem;
+    padding: 1rem 1.25rem;
+    background: rgba(167, 120, 106, 0.9);
+    border: 1px solid rgba(148,163,184,0.4);
+    box-shadow: 0 18px 45px rgba(15, 23, 45, 0.9);
+}
+.task-table.easy {
+    border-color: #244932;
+}
+.task-table.medium {
+    border-color: #8d4422;
+}
+.task-table.hard {
+    border-color: #681515;
+}
+.task-table h2 {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+    margin: 0 0 0.5rem;
+}
+.task-table h2 span.label {
+    font-weight: 600;
+}
+.task-table h2 span.tag {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 0.06rem;
+}
+.task-table p.subtitle {
+    margin: 0 0 0.75rem;
+    font-size: 0.9rem;
+    color: #000000;
+    opacity: 0.9;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+thead {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.08rem;
+    color: #000000;
+}
+th,td {
+    padding: 0.45rem 0.25rem;
+}
+th:first-child, td:first-child {
+    text-align: left;
+}
+th:last-child, td:last-child {
+    text-align: right;
+    width: 70px;
+    white-space: nowrap;
+}
+tbody tr {
+    border-top: 1px solid rgba(51, 65, 85, 0.9);
+}
+tbody tr:nth-child(odd) {
+    background: rgba(15, 23, 42, 0.7);
+}
+tbody tr:nth-child(even) {
+    background: rgba(15, 23, 42, 0.4);
+}
+tbody tr:hover {
+    background: rgba(30, 64, 175, 0.5);
+}
+.damage-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.25rem;
+    padding: 0.1rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(148, 163, 184, 0.6);
+}
+.damage-pill span.value {
+    font-weight: 600;
+}
+.damage-pill.easy {
+    border-color: #22c55e;
+}
+.damage-pill.medium {
+    border-color: #eab308;
+}
+.damage-pill.hard {
+    border-color: #ef4444;
+}
+@media (max-width: 640px) {
+body {
+    padding: 1rem;
+}
+.task-table {
+    padding: 0.75rem 0.9rem;
+}
+th, td {
+    padding: 0.35rem 0.1rem;
+}
+}
+
+    </style>
 </head>
 <body>
 <main class="task-tables">
@@ -59,56 +193,69 @@
     </section>
 </main>
 
-<script>
-    
-    //Task data
+ <script>
+    // Task data in one place so it is easy to tweak later
     const taskData = {
-        easy: [
-            { task "Make your bed", dmg: "10" }
-            { task "Put dishes into the dishwasher or sink", dmg: "10" }
-            { task "Wipe down the desk", dmg: "10" }
-            { task "Take the trash out", dmg: "10" }
-        ],
-        medium: [ 
-            { task "Kitchen counters", dmg: "20" }
-            { task "Do the dishes", dmg: "20" }
-            { task "Bathroom counters" dmg: "20" }
-            { task "Change bedsheets" dmg: "20" }
-        ]
-        hard: [
-            { task "Mop the floors", dmg: "40" }
-            { task "Vacuum the floors", dmg: "40" }
-            { task "Deep-clean the bathroom", dmg: "50" }
-            { task "Grocery shop", dmg: "30" }
-            { task "Declutter an area", dmg: "40" }
-        ]
+      easy: [
+        { task: "Make your bed", dmg: "5 HP" },
+        { task: "Put dishes into the dishwasher or sink", dmg: "5 HP" },
+        { task: "Wipe down your desk", dmg: "5 HP" },
+        { task: "Take trash out", dmg: "5 HP" },
+        { task: "Drink a glass of water", dmg: "5 HP" },
+        { task: "Sort 3–5 items into their place", dmg: "5 HP" },
+        { task: "Start a load of laundry", dmg: "8 HP" },
+        { task: "Water the plants and/or take care of pets", dmg: "8 HP" }
+      ],
+      medium: [
+        { task: "Kitchen counters", dmg: "15 HP" },
+        { task: "Do the dishes", dmg: "15 HP" },
+        { task: "Bathroom counters", dmg: "15 HP" },
+        { task: "Change bedsheets", dmg: "18 HP" },
+        { task: "Put laundry away", dmg: "18 HP" },
+        { task: "Cook a meal", dmg: "20 HP" },
+        { task: "Clear your desk", dmg: "15 HP" },
+        { task: "Take a short walk for fresh air", dmg: "12 HP" },
+        { task: "Scrub the toilet", dmg: "20 HP" },
+        { task: "Scrub the shower", dmg: "25 HP" },
+        { task: "Wipe all surfaces in one room", dmg: "18 HP" }
+      ],
+      hard: [
+        { task: "Mop a whole room or more", dmg: "35 HP" },
+        { task: "Vacuum a whole room or more", dmg: "35 HP" },
+        { task: "Deep-clean bathroom", dmg: "50 HP" },
+        { task: "Grocery shop + unpack", dmg: "30 HP" },
+        { task: "Declutter a full area", dmg: "40 HP" },
+        { task: "Clean kitchen fully", dmg: "45 HP" },
+        { task: "Clean the fridge", dmg: "50 HP" },
+        { task: "45 minutes of focused work", dmg: "30 HP" },
+        { task: "Choose your task! (Wildcard)", dmg: "25–60 HP" }
+      ]
     };
 
     function renderTable(sectionId, difficultyKey) {
-        const section = document.getElementById(sectionId);
-        const tbody = section.querySelector("tbody");
-        const rows = taskData[difficultyKey]
-            .map(item => {
-                return `
-                <tr>
-                    <td>${item.task}</td>
-                    <td>
-                        <span class="damage-pill ${difficultyKey}">
-                        <span class="value">${item.dmg}</span>
-                        </span>
-                    </td>
-                </tr>
-            `;
-            })
+      const section = document.getElementById(sectionId);
+      const tbody = section.querySelector("tbody");
+      const rows = taskData[difficultyKey]
+        .map(item => {
+          return `
+          <tr>
+            <td>${item.task}</td>
+            <td>
+              <span class="damage-pill ${difficultyKey}">
+                <span class="value">${item.dmg}</span>
+              </span>
+            </td>
+          </tr>
+        `;
+        })
         .join("");
-        tbody.innerHTML = rows;
+      tbody.innerHTML = rows;
     }
 
     renderTable("table-easy", "easy");
     renderTable("table-medium", "medium");
     renderTable("table-hard", "hard");
-
-</script>
+  </script>
     
 </body>
 </html>
