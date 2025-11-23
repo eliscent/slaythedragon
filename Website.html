@@ -11,6 +11,7 @@
       --easy: #4ade80;
       --medium: #facc15;
       --hard: #f87171;
+      --aoe: #38bdf8; /* Critical / AoE color */
     }
 
     body {
@@ -63,6 +64,7 @@
     .easy td:last-child { color: var(--easy); }
     .medium td:last-child { color: var(--medium); }
     .hard td:last-child { color: var(--hard); }
+    .aoe td:last-child { color: var(--aoe); }
 
     .content {
       width: 100%;
@@ -88,7 +90,6 @@
     }
 
     .hidden {
-      /* can keep this generic if you want */
       display: none;
     }
 
@@ -103,7 +104,7 @@
       z-index: 10;
     }
 
-    /* 👇 THIS is the important fix */
+    /* ensure hidden actually hides it */
     #quest-modal.hidden {
       display: none;
     }
@@ -162,6 +163,7 @@
     .badge.easy { border-color: var(--easy); color: var(--easy); }
     .badge.medium { border-color: var(--medium); color: var(--medium); }
     .badge.hard { border-color: var(--hard); color: var(--hard); }
+    .badge.aoe { border-color: var(--aoe); color: var(--aoe); }
   </style>
 </head>
 <body>
@@ -180,12 +182,15 @@
 
     <h2>Dragon-Slaying Duties (Hard)</h2>
     <table id="hard"></table>
+
+    <h2>Area of Effect Spells (Critical)</h2>
+    <table id="aoe"></table>
   </div>
 
   <!-- Quest popup modal -->
   <div id="quest-modal" class="hidden">
     <div class="modal-inner">
-      <h3 id="quest-title">New Quest!</h3>
+      <h3 id="quest-title">New quest!</h3>
       <div id="quest-badge"></div>
       <p id="quest-text"></p>
       <p id="quest-damage"></p>
@@ -207,33 +212,42 @@
         ["Wipe down your desk", "10"],
         ["Take trash out", "10"],
         ["Drink a glass of water", "10"],
-        ["Sort 3–5 items into place", "10"],
-        ["Start a load of laundry", "15"],
-        ["Water plants / care for pets", "10"]
+        ["Sort 3–5 items into their place", "10"],
+        ["Put on a load of laundry", "15"],
+        ["Take care of the plants", "10"],
+        ["Take care of the pets", "10"],
+        ["Take a short walk for fresh air", "15"]
       ],
       medium: [
         ["Kitchen counters", "20"],
         ["Do the dishes", "30"],
         ["Bathroom counters", "20"],
-        ["Change bedsheets", "20"],
-        ["Put laundry away", "30"],
+        ["Change bedsheets", "25"],
+        ["Put laundry away", "25"],
         ["Cook a meal", "20"],
         ["Clear your desk", "20"],
-        ["Short walk for fresh air", "20"],
-        ["Scrub toilet", "20"],
-        ["Scrub shower", "20"],
-        ["Wipe surfaces", "20"]
+        ["Scrub the toilet", "25"],
+        ["Scrub the shower", "30"],
+        ["Reorganize a drawer", "25"]
       ],
       hard: [
-        ["Mop a whole room or more", "40"],
-        ["Vacuum a whole room or more", "40"],
-        ["Deep-clean bathroom", "50"],
-        ["Grocery shop + unpack", "30"],
-        ["Declutter an area", "40"],
-        ["Clean kitchen fully", "40"],
+        ["Grocery shop + unpack", "35"],
+        ["Clean kitchen (surfaces + dishes + stove)", "40"],
         ["Clean the fridge", "40"],
-        ["45 minutes focused work", "30"],
-        ["Choose your task! (Wildcard)", "30"]
+        ["Toss expired food (fridge and/or pantry)", "30"],
+        ["Clean the oven", "40"],
+        ["Clean the recycling bins", "30"],
+        ["Deep-clean bathroom", "45"],
+        ["Clean the windows (in one room)", "35"]
+      ],
+      aoe: [
+        ["Wipe all surfaces", "25"],
+        ["Open the windows for 20 minutes", "20"],
+        ["Mop the floors", "45"],
+        ["Vacuum the floors", "40"],
+        ["Time Trial! (10 min speed clean)", "30"],
+        ["Declutter an area", "35"],
+        ["Choose your task!", "30"]
       ]
     };
 
@@ -251,9 +265,10 @@
       return array;
     }
 
-    // Populate each table with 5 random tasks from the category
+    // Populate each table with up to 5 random tasks from the category
     for (const diff in tasks) {
       const table = document.getElementById(diff);
+      if (!table) continue;
 
       const randomized = shuffle([...tasks[diff]]);
       const visibleTasks = randomized.slice(0, 5);
@@ -309,7 +324,7 @@
     }
 
     function openModal() {
-      if (!currentQuest) return; // only open if we actually have a quest
+      if (!currentQuest) return;
       modal.classList.remove("hidden");
     }
 
@@ -320,7 +335,7 @@
     function renderQuest(taskObj, mode = "offer") {
       const { difficulty, task, dmg } = taskObj;
 
-      questBadge.innerHTML = `<span class="badge ${difficulty}">${difficulty.toUpperCase()}</span>`;
+      questBadge.innerHTML = `<span class="badge ${difficulty}">${difficulty === "aoe" ? "CRITICAL" : difficulty.toUpperCase()}</span>`;
 
       if (mode === "offer") {
         questTitle.textContent = "New quest!";
