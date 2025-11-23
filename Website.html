@@ -12,6 +12,7 @@ body {
     padding: 2rem;
     justify-content: center;
     display: flex;
+    color: #111;
     background-color: #b8a885; /* fallback beige color */
     background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
     background-repeat: repeat;
@@ -24,239 +25,123 @@ body {
     text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
     text-align: center;
 }
-.task-tables {
-    width: 100%;
-    max-width: 900px;
-    display: grid;
-    gap: 1.5rem;
+:root {
+    --easy: #4ade80;
+    --medium: #facc15;
+    --hard: #f87171;
 }
-.task-table {
-    border-radius: 1rem;
-    padding: 1rem 1.25rem;
-    background: rgba(167, 120, 106, 0.9);
-    border: 1px solid rgba(148,163,184,0.4);
-    box-shadow: 0 18px 45px rgba(15, 23, 45, 0.9);
+
+h2 {
+    margin-top: 2rem;
+    font-size: 1.2rem;
 }
-.task-table.easy {
-    border-color: #244932;
-}
-.task-table.medium {
-    border-color: #8d4422;
-}
-.task-table.hard {
-    border-color: #681515;
-}
-.task-table h2 {
-    display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
-    font-size: 1.5rem;
-    margin: 0 0 0.5rem;
-}
-.task-table h2 span.label {
-    font-weight: 600;
-}
-.task-table h2 span.tag {
-    font-size: 0.8rem;
-    opacity: 0.8;
-    text-transform: uppercase;
-    letter-spacing: 0.06rem;
-}
-.task-table p.subtitle {
-    margin: 0 0 0.75rem;
-    font-size: 0.9rem;
-    color: #000000;
-    opacity: 0.9;
-}
+
 table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.95rem;
+    margin-top: .5rem;
+    margin-bottom: 1.5rem;
 }
-thead {
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 0.08rem;
-    color: #000000;
-}
-th,td {
-    padding: 0.45rem 0.25rem;
-}
-th:first-child, td:first-child {
+
+th, td {
     text-align: left;
+    padding: .4rem 0;
+    font-size: .95rem;
+    border-bottom: 1px solid #eee;
 }
-th:last-child, td:last-child {
+
+td:last-child {
     text-align: right;
-    width: 70px;
-    white-space: nowrap;
-}
-tbody tr {
-    border-top: 1px solid rgba(51, 65, 85, 0.9);
-}
-tbody tr:nth-child(odd) {
-    background: rgba(15, 23, 42, 0.7);
-}
-tbody tr:nth-child(even) {
-    background: rgba(15, 23, 42, 0.4);
-}
-tbody tr:hover {
-    background: rgba(30, 64, 175, 0.5);
-}
-.damage-pill {
-    display: inline-flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 0.25rem;
-    padding: 0.1rem 0.6rem;
-    border-radius: 999px;
-    font-size: 0.8rem;
-    background: rgba(15, 23, 42, 0.9);
-    border: 1px solid rgba(148, 163, 184, 0.6);
-}
-.damage-pill span.value {
     font-weight: 600;
 }
-.damage-pill.easy {
-    border-color: #22c55e;
-}
-.damage-pill.medium {
-    border-color: #eab308;
-}
-.damage-pill.hard {
-    border-color: #ef4444;
-}
-@media (max-width: 640px) {
-body {
-    padding: 1rem;
-}
-.task-table {
-    padding: 0.75rem 0.9rem;
-}
-th, td {
-    padding: 0.35rem 0.1rem;
-}
-}
 
-    </style>
+/* difficulty color accents */
+.easy td:last-child { color: var(--easy); }
+.medium td:last-child { color: var(--medium); }
+.hard td:last-child { color: var(--hard); }
+
+</style>
 </head>
-<body>
-<main class="task-tables">
-    <section class="task-table easy" id="table-easy">
-        <h2>
-            <span class="label">Everyday Quests</span>
-            <span class="tag">(Easy)</span>
-        </h2>
-        <p class="subtitle">Quick tasks that chip away at the dragon</p>
-        <table>
-            <thead>
-                <tr>
-                    <th>Task</th>
-                    <th>Damage</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </section>
+<h2>Everyday Quests (Easy)</h2>
+<table id="easy"></table>
 
-    <section class="task-table medium" id="table-medium">
-        <h2>
-            <span class="label">Heroic Housekeeping</span>
-            <span class="tag">(Medium)</span>
-        </h2>
-        <p class="subtitle">Solid strikes that deal a chunk of HP</p>
-        <table>
-            <thead>
-                <tr>
-                    <th>Task</th>
-                    <th>Damage</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </section>
+<h2>Heroic Housekeeping (Medium)</h2>
+<table id="medium"></table>
 
-        <section class="task-table hard" id="table-hard">
-        <h2>
-            <span class="label">Dragon-Slaying Duties</span>
-            <span class="tag">(Hard)</span>
-        </h2>
-        <p class="subtitle">Big efforts that deal some serious damage</p>
-        <table>
-            <thead>
-                <tr>
-                    <th>Task</th>
-                    <th>Damage</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </section>
-</main>
+<h2>Dragon-Slaying Duties (Hard)</h2>
+<table id="hard"></table>
 
- <script>
-    // Task data in one place so it is easy to tweak later
-    const taskData = {
-      easy: [
-        { task: "Make your bed", dmg: "5 HP" },
-        { task: "Put dishes into the dishwasher or sink", dmg: "5 HP" },
-        { task: "Wipe down your desk", dmg: "5 HP" },
-        { task: "Take trash out", dmg: "5 HP" },
-        { task: "Drink a glass of water", dmg: "5 HP" },
-        { task: "Sort 3–5 items into their place", dmg: "5 HP" },
-        { task: "Start a load of laundry", dmg: "8 HP" },
-        { task: "Water the plants and/or take care of pets", dmg: "8 HP" }
-      ],
-      medium: [
-        { task: "Kitchen counters", dmg: "15 HP" },
-        { task: "Do the dishes", dmg: "15 HP" },
-        { task: "Bathroom counters", dmg: "15 HP" },
-        { task: "Change bedsheets", dmg: "18 HP" },
-        { task: "Put laundry away", dmg: "18 HP" },
-        { task: "Cook a meal", dmg: "20 HP" },
-        { task: "Clear your desk", dmg: "15 HP" },
-        { task: "Take a short walk for fresh air", dmg: "12 HP" },
-        { task: "Scrub the toilet", dmg: "20 HP" },
-        { task: "Scrub the shower", dmg: "25 HP" },
-        { task: "Wipe all surfaces in one room", dmg: "18 HP" }
-      ],
-      hard: [
-        { task: "Mop a whole room or more", dmg: "35 HP" },
-        { task: "Vacuum a whole room or more", dmg: "35 HP" },
-        { task: "Deep-clean bathroom", dmg: "50 HP" },
-        { task: "Grocery shop + unpack", dmg: "30 HP" },
-        { task: "Declutter a full area", dmg: "40 HP" },
-        { task: "Clean kitchen fully", dmg: "45 HP" },
-        { task: "Clean the fridge", dmg: "50 HP" },
-        { task: "45 minutes of focused work", dmg: "30 HP" },
-        { task: "Choose your task! (Wildcard)", dmg: "25–60 HP" }
-      ]
-    };
+<script>
+const tasks = {
+  easy: [
+    ["Make your bed", "10"],
+    ["Put dishes into the dishwasher or sink", "10"],
+    ["Wipe down your desk", "10"],
+    ["Take trash out", "10"],
+    ["Drink a glass of water", "10"],
+    ["Sort 3–5 items into place", "10"],
+    ["Start a load of laundry", "15"],
+    ["Water plants / care for pets", "10"]
+  ],
+  medium: [
+    ["Kitchen counters", "20"],
+    ["Do the dishes", "30"],
+    ["Bathroom counters", "20"],
+    ["Change bedsheets", "20"],
+    ["Put laundry away", "30"],
+    ["Cook a meal", "20"],
+    ["Clear your desk", "20"],
+    ["Short walk for fresh air", "20"],
+    ["Scrub toilet", "20"],
+    ["Scrub shower", "20"],
+    ["Wipe surfaces", "20"]
+  ],
+  hard: [
+    ["Mop a whole room or more", "40"],
+    ["Vacuum a whole room or more", "40"],
+    ["Deep-clean bathroom", "50"],
+    ["Grocery shop + unpack", "30"],
+    ["Declutter an area", "40"],
+    ["Clean kitchen fully", "40"],
+    ["Clean the fridge", "40"],
+    ["45 minutes focused work", "30"],
+    ["Choose your task! (Wildcard)", "30"]
+  ]
+};
 
-    function renderTable(sectionId, difficultyKey) {
-      const section = document.getElementById(sectionId);
-      const tbody = section.querySelector("tbody");
-      const rows = taskData[difficultyKey]
-        .map(item => {
-          return `
-          <tr>
-            <td>${item.task}</td>
-            <td>
-              <span class="damage-pill ${difficultyKey}">
-                <span class="value">${item.dmg}</span>
-              </span>
-            </td>
-          </tr>
-        `;
-        })
-        .join("");
-      tbody.innerHTML = rows;
-    }
+// Simple shuffle function (Fisher-Yates)
+function shuffle(array) {
+  let currentIndex = array.length;
+  while (currentIndex !== 0) {
+    const randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex]
+    ];
+  }
+  return array;
+}
 
-    renderTable("table-easy", "easy");
-    renderTable("table-medium", "medium");
-    renderTable("table-hard", "hard");
-  </script>
-    
+// Populate each table with random 5 tasks
+for (const diff in tasks) {
+  const table = document.getElementById(diff);
+
+  const randomized = shuffle([...tasks[diff]]); // 👈 copy so original isn't changed
+  const visibleTasks = randomized.slice(0, 5);  // 👈 pick 5 random ones
+
+  table.innerHTML = visibleTasks
+    .map(([task, dmg]) =>
+      `<tr class="${diff}">
+        <td>${task}</td>
+        <td>${dmg} HP</td>
+      </tr>`
+    )
+    .join("");
+}
+
+</script>
+
 </body>
 </html>
 
