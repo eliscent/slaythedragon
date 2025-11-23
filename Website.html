@@ -1,147 +1,378 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8" />
-    <title>Slay the Dragon!</title>
+  <meta charset="UTF-8" />
+  <title>Slay the Dragon!</title>
 
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
 
-body {
-    margin: 0;
-    padding: 2rem;
-    justify-content: center;
-    display: flex;
-    color: #111;
-    background-color: #b8a885; /* fallback beige color */
-    background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
-    background-repeat: repeat;
-    background-size: auto;
-    font-family: 'MedievalSharp', cursive;
-}
-#comingsoon {
-    font-size: 2.5rem;
-    color: #3b2f2f;
-    text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
-    text-align: center;
-}
-:root {
-    --easy: #4ade80;
-    --medium: #facc15;
-    --hard: #f87171;
-}
+    :root {
+      --easy: #4ade80;
+      --medium: #facc15;
+      --hard: #f87171;
+    }
 
-h2 {
-    margin-top: 2rem;
-    font-size: 1.2rem;
-}
+    body {
+      margin: 0;
+      padding: 2rem;
+      justify-content: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #111;
+      background-color: #b8a885; /* fallback beige color */
+      background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+      background-repeat: repeat;
+      background-size: auto;
+      font-family: 'MedievalSharp', cursive;
+    }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: .5rem;
-    margin-bottom: 1.5rem;
-}
+    h1 {
+      margin-bottom: 1rem;
+      font-size: 2rem;
+      text-align: center;
+    }
 
-th, td {
-    text-align: left;
-    padding: .4rem 0;
-    font-size: .95rem;
-    border-bottom: 1px solid #eee;
-}
+    h2 {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+    }
 
-td:last-child {
-    text-align: right;
-    font-weight: 600;
-}
+    table {
+      width: 100%;
+      max-width: 600px;
+      border-collapse: collapse;
+      margin-top: .5rem;
+      margin-bottom: 1.5rem;
+    }
 
-/* difficulty color accents */
-.easy td:last-child { color: var(--easy); }
-.medium td:last-child { color: var(--medium); }
-.hard td:last-child { color: var(--hard); }
+    th, td {
+      text-align: left;
+      padding: .4rem 0;
+      font-size: .95rem;
+      border-bottom: 1px solid #eee;
+    }
 
-</style>
+    td:last-child {
+      text-align: right;
+      font-weight: 600;
+    }
+
+    /* difficulty color accents */
+    .easy td:last-child { color: var(--easy); }
+    .medium td:last-child { color: var(--medium); }
+    .hard td:last-child { color: var(--hard); }
+
+    .content {
+      width: 100%;
+      max-width: 700px;
+    }
+
+    /* roll button */
+    #roll-btn {
+      margin: 1rem auto 0;
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      border-radius: 999px;
+      border: 2px solid #333;
+      background: #f8f0d6;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    #roll-btn:hover {
+      background: #f1e4c0;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* modal / popup */
+    #quest-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .modal-inner {
+      background: #f8f0d6;
+      border: 2px solid #3b2f2f;
+      border-radius: 12px;
+      padding: 1.5rem;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    .modal-inner h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+    }
+
+    .modal-inner p {
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .modal-actions button {
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid #3b2f2f;
+      background: #fff4d4;
+      cursor: pointer;
+      font-family: 'MedievalSharp', cursive;
+    }
+
+    .modal-actions button:hover {
+      background: #f1e4c0;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-bottom: 0.5rem;
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      border: 1px solid #3b2f2f;
+    }
+
+    .badge.easy { border-color: var(--easy); color: var(--easy); }
+    .badge.medium { border-color: var(--medium); color: var(--medium); }
+    .badge.hard { border-color: var(--hard); color: var(--hard); }
+  </style>
 </head>
-<h2>Everyday Quests (Easy)</h2>
-<table id="easy"></table>
+<body>
+  <div class="content">
+    <h1>Slay the Dragon!</h1>
 
-<h2>Heroic Housekeeping (Medium)</h2>
-<table id="medium"></table>
+    <!-- Dice roll button -->
+    <button id="roll-btn">🎲 Roll the dice for a quest</button>
 
-<h2>Dragon-Slaying Duties (Hard)</h2>
-<table id="hard"></table>
+    <!-- Tables -->
+    <h2>Everyday Quests (Easy)</h2>
+    <table id="easy"></table>
 
-<script>
-const tasks = {
-  easy: [
-    ["Make your bed", "10"],
-    ["Put dishes into the dishwasher or sink", "10"],
-    ["Wipe down your desk", "10"],
-    ["Take trash out", "10"],
-    ["Drink a glass of water", "10"],
-    ["Sort 3–5 items into place", "10"],
-    ["Start a load of laundry", "15"],
-    ["Water plants / care for pets", "10"]
-  ],
-  medium: [
-    ["Kitchen counters", "20"],
-    ["Do the dishes", "30"],
-    ["Bathroom counters", "20"],
-    ["Change bedsheets", "20"],
-    ["Put laundry away", "30"],
-    ["Cook a meal", "20"],
-    ["Clear your desk", "20"],
-    ["Short walk for fresh air", "20"],
-    ["Scrub toilet", "20"],
-    ["Scrub shower", "20"],
-    ["Wipe surfaces", "20"]
-  ],
-  hard: [
-    ["Mop a whole room or more", "40"],
-    ["Vacuum a whole room or more", "40"],
-    ["Deep-clean bathroom", "50"],
-    ["Grocery shop + unpack", "30"],
-    ["Declutter an area", "40"],
-    ["Clean kitchen fully", "40"],
-    ["Clean the fridge", "40"],
-    ["45 minutes focused work", "30"],
-    ["Choose your task! (Wildcard)", "30"]
-  ]
-};
+    <h2>Heroic Housekeeping (Medium)</h2>
+    <table id="medium"></table>
 
-// Simple shuffle function (Fisher-Yates)
-function shuffle(array) {
-  let currentIndex = array.length;
-  while (currentIndex !== 0) {
-    const randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex],
-      array[currentIndex]
-    ];
-  }
-  return array;
-}
+    <h2>Dragon-Slaying Duties (Hard)</h2>
+    <table id="hard"></table>
+  </div>
 
-// Populate each table with random 5 tasks
-for (const diff in tasks) {
-  const table = document.getElementById(diff);
+  <!-- Quest popup modal -->
+  <div id="quest-modal" class="hidden">
+    <div class="modal-inner">
+      <h3 id="quest-title">New Quest!</h3>
+      <div id="quest-badge"></div>
+      <p id="quest-text"></p>
+      <p id="quest-damage"></p>
 
-  const randomized = shuffle([...tasks[diff]]); // 👈 copy so original isn't changed
-  const visibleTasks = randomized.slice(0, 5);  // 👈 pick 5 random ones
+      <div class="modal-actions">
+        <button id="btn-accept">Accept quest</button>
+        <button id="btn-reroll">Roll again</button>
+        <button id="btn-done" class="hidden">Mark as done</button>
+        <button id="btn-cancel" class="hidden">Cancel quest</button>
+      </div>
+    </div>
+  </div>
 
-  table.innerHTML = visibleTasks
-    .map(([task, dmg]) =>
-      `<tr class="${diff}">
-        <td>${task}</td>
-        <td>${dmg} HP</td>
-      </tr>`
-    )
-    .join("");
-}
+  <script>
+    const tasks = {
+      easy: [
+        ["Make your bed", "10"],
+        ["Put dishes into the dishwasher or sink", "10"],
+        ["Wipe down your desk", "10"],
+        ["Take trash out", "10"],
+        ["Drink a glass of water", "10"],
+        ["Sort 3–5 items into place", "10"],
+        ["Start a load of laundry", "15"],
+        ["Water plants / care for pets", "10"]
+      ],
+      medium: [
+        ["Kitchen counters", "20"],
+        ["Do the dishes", "30"],
+        ["Bathroom counters", "20"],
+        ["Change bedsheets", "20"],
+        ["Put laundry away", "30"],
+        ["Cook a meal", "20"],
+        ["Clear your desk", "20"],
+        ["Short walk for fresh air", "20"],
+        ["Scrub toilet", "20"],
+        ["Scrub shower", "20"],
+        ["Wipe surfaces", "20"]
+      ],
+      hard: [
+        ["Mop a whole room or more", "40"],
+        ["Vacuum a whole room or more", "40"],
+        ["Deep-clean bathroom", "50"],
+        ["Grocery shop + unpack", "30"],
+        ["Declutter an area", "40"],
+        ["Clean kitchen fully", "40"],
+        ["Clean the fridge", "40"],
+        ["45 minutes focused work", "30"],
+        ["Choose your task! (Wildcard)", "30"]
+      ]
+    };
 
-</script>
+    // Shuffle helper
+    function shuffle(array) {
+      let currentIndex = array.length;
+      while (currentIndex !== 0) {
+        const randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        [array[currentIndex], array[randomIndex]] = [
+          array[randomIndex],
+          array[currentIndex]
+        ];
+      }
+      return array;
+    }
 
+    // Populate each table with 5 random tasks from the category
+    for (const diff in tasks) {
+      const table = document.getElementById(diff);
+
+      const randomized = shuffle([...tasks[diff]]);
+      const visibleTasks = randomized.slice(0, 5);
+
+      table.innerHTML = visibleTasks
+        .map(([task, dmg]) =>
+          `<tr class="${diff}">
+            <td>${task}</td>
+            <td>${dmg} HP</td>
+          </tr>`
+        )
+        .join("");
+    }
+
+    // Flatten tasks for dice randomizer
+    const allTasks = Object.entries(tasks).flatMap(([difficulty, list]) =>
+      list.map(([task, dmg]) => ({ difficulty, task, dmg }))
+    );
+
+    function getRandomTask() {
+      const index = Math.floor(Math.random() * allTasks.length);
+      return allTasks[index];
+    }
+
+    // Modal elements
+    const modal = document.getElementById("quest-modal");
+    const questTitle = document.getElementById("quest-title");
+    const questText = document.getElementById("quest-text");
+    const questDamage = document.getElementById("quest-damage");
+    const questBadge = document.getElementById("quest-badge");
+
+    const btnRoll = document.getElementById("roll-btn");
+    const btnAccept = document.getElementById("btn-accept");
+    const btnReroll = document.getElementById("btn-reroll");
+    const btnDone = document.getElementById("btn-done");
+    const btnCancel = document.getElementById("btn-cancel");
+
+    let currentQuest = null;
+    let questAccepted = false;
+
+    function showButtonsInitial() {
+      btnAccept.classList.remove("hidden");
+      btnReroll.classList.remove("hidden");
+      btnDone.classList.add("hidden");
+      btnCancel.classList.add("hidden");
+    }
+
+    function showButtonsAccepted() {
+      btnAccept.classList.add("hidden");
+      btnReroll.classList.add("hidden");
+      btnDone.classList.remove("hidden");
+      btnCancel.classList.remove("hidden");
+    }
+
+    function openModal() {
+      if (!currentQuest) return; // only open if we actually have a quest
+      modal.classList.remove("hidden");
+    }
+
+    function closeModal() {
+      modal.classList.add("hidden");
+    }
+
+    function renderQuest(taskObj, mode = "offer") {
+      const { difficulty, task, dmg } = taskObj;
+
+      questBadge.innerHTML = `<span class="badge ${difficulty}">${difficulty.toUpperCase()}</span>`;
+
+      if (mode === "offer") {
+        questTitle.textContent = "New quest!";
+        questText.textContent = `You rolled: "${task}".`;
+        questDamage.textContent = `Reward: ${dmg} HP damage to the dragon.`;
+        showButtonsInitial();
+      } else if (mode === "accepted") {
+        questTitle.textContent = "Quest accepted!";
+        questText.textContent = `You start your quest: "${task}".`;
+        questDamage.textContent = `Complete it to deal ${dmg} HP damage.`;
+        showButtonsAccepted();
+      }
+    }
+
+    function rollNewQuest() {
+      currentQuest = getRandomTask();
+      questAccepted = false;
+      renderQuest(currentQuest, "offer");
+      openModal();
+    }
+
+    // Button events
+    btnRoll.addEventListener("click", () => {
+      rollNewQuest();
+    });
+
+    btnReroll.addEventListener("click", () => {
+      rollNewQuest();
+    });
+
+    btnAccept.addEventListener("click", () => {
+      if (!currentQuest) return;
+      questAccepted = true;
+      renderQuest(currentQuest, "accepted");
+    });
+
+    btnDone.addEventListener("click", () => {
+      if (!currentQuest) return;
+      // later: hook in HP / XP logic here
+      closeModal();
+      currentQuest = null;
+      questAccepted = false;
+    });
+
+    btnCancel.addEventListener("click", () => {
+      // cancel current quest -> immediately roll a new one
+      rollNewQuest();
+    });
+
+    // Outside click closes modal only if quest not accepted
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        if (!questAccepted) {
+          closeModal();
+          currentQuest = null;
+        }
+      }
+    });
+  </script>
 </body>
 </html>
-
