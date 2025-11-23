@@ -88,6 +88,7 @@
     }
 
     .hidden {
+      /* can keep this generic if you want */
       display: none;
     }
 
@@ -100,6 +101,11 @@
       align-items: center;
       justify-content: center;
       z-index: 10;
+    }
+
+    /* 👇 THIS is the important fix */
+    #quest-modal.hidden {
+      display: none;
     }
 
     .modal-inner {
@@ -364,7 +370,7 @@
       rollNewQuest();
     });
 
-    // Outside click closes modal only if quest not accepted
+    // Outside click closes modal only if quest NOT accepted
     modal.addEventListener("click", (e) => {
       if (e.target === modal) {
         if (!questAccepted) {
