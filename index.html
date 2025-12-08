@@ -1,14 +1,139 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="style.css">
-    <title>Slay the Dragon!</title>
+  <meta charset="UTF-8" />
+  <title>Slay the Dragon!</title>
 </head>
 <body>
-<p></p>
-    <p id="comingsoon">Something great this way comes</p>
-    
+  <div class="page-frame">
+    <header class="page-header">
+      <h1 class="page-title">Slay the Dragon!</h1>
+      <p class="page-subtitle">Turn your chores into quests and chip away at the dragon’s HP.</p>
+    </header>
+
+    <div class="top-row">
+      <!-- 🐉 DRAGON HP SECTION -->
+      <section class="dragon-hp-card" id="dragon-hp-box">
+        <div class="card-title">
+          <span>🐉 Dragon HP</span>
+        </div>
+        <p class="card-caption">Complete quests to deal damage. When HP hits 0, the dragon is slain.</p>
+        <div class="dragon-hp">
+          <div class="dragon-hp-title">
+            <span id="hp-text">Dragon HP: 0 / 0</span>
+          </div>
+          <div class="hp-bar">
+            <div class="hp-bar-inner" id="hp-fill"></div>
+          </div>
+          <button id="reset-dragon">Summon new dragon</button>
+        </div>
+      </section>
+
+      <!-- 🎲 QUEST ACTIONS / DICE -->
+      <section class="quest-actions-card">
+        <div class="card-title">
+          <span>🎲 Quest Dice</span>
+        </div>
+        <div class="quest-actions-card-content">
+          <p class="card-caption">
+            Roll the dice to get a random quest. Accept it, complete it, and strike the dragon.
+          </p>
+          <button id="roll-btn">
+            <span class="die">d20</span>
+            <span>Roll a random quest</span>
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <!-- Task sections -->
+    <div class="tasks-grid">
+      <section class="tasks-card">
+        <div class="tasks-card-header">
+          <h2 class="tasks-card-title">Everyday Quests</h2>
+          <span class="tasks-card-tag easy">(Easy)</span>
+        </div>
+        <p class="tasks-card-note">Quick wins to build momentum.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>DMG</th>
+            </tr>
+          </thead>
+          <tbody id="easy"></tbody>
+        </table>
+      </section>
+
+      <section class="tasks-card">
+        <div class="tasks-card-header">
+          <h2 class="tasks-card-title">Heroic Housekeeping</h2>
+          <span class="tasks-card-tag medium">(Medium)</span>
+        </div>
+        <p class="tasks-card-note">Single-zone quests that take a bit more effort.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>DMG</th>
+            </tr>
+          </thead>
+          <tbody id="medium"></tbody>
+        </table>
+      </section>
+
+      <section class="tasks-card">
+        <div class="tasks-card-header">
+          <h2 class="tasks-card-title">Dragon-Slaying Duties</h2>
+          <span class="tasks-card-tag hard">(Hard)</span>
+        </div>
+        <p class="tasks-card-note">Bigger missions that really wound the dragon.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>DMG</th>
+            </tr>
+          </thead>
+          <tbody id="hard"></tbody>
+        </table>
+      </section>
+
+      <section class="tasks-card">
+        <div class="tasks-card-header">
+          <h2 class="tasks-card-title">Area of Effect Spells</h2>
+          <span class="tasks-card-tag aoe">(Critical)</span>
+        </div>
+        <p class="tasks-card-note">Whole-room or multi-area strikes.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>DMG</th>
+            </tr>
+          </thead>
+          <tbody id="aoe"></tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+
+  <!-- Quest popup modal -->
+  <div id="quest-modal" class="hidden">
+    <div class="modal-inner">
+      <h3 id="quest-title">New quest!</h3>
+      <div id="quest-badge"></div>
+      <p id="quest-text"></p>
+      <p id="quest-damage"></p>
+
+      <div class="modal-actions">
+        <button id="btn-accept">Accept quest</button>
+        <button id="btn-reroll">Roll again</button>
+        <button id="btn-done" class="hidden">Mark as done</button>
+        <button id="btn-cancel" class="hidden">Cancel quest</button>
+      </div>
+    </div>
+  </div>
+    <script src="script.js" defer></script>
 </body>
 </html>
-
