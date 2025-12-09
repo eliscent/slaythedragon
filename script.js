@@ -44,7 +44,7 @@
       ]
     };
 
-    // 🐉 DRAGON HP LOGIC
+    // DRAGON HP LOGIC
     const maxHP = 300;
     let currentHP = maxHP;
 
