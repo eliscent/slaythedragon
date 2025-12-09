@@ -217,16 +217,17 @@ body {
 
 #roll-btn {
   margin-top: 0.25rem;
-  padding: 0.55rem 1.2rem;
-  font-size: 0.95rem;
-  border-radius: 999px;
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
   border: 2px solid #333;
   background: #f8f0d6;
   cursor: pointer;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 0.4rem;
+  justify-content: center;
   font-family: 'MedievalSharp', cursive;
+  padding: 0;
 }
 
 #roll-btn:hover {
@@ -234,11 +235,12 @@ body {
 }
 
 .dice-icon {
-  width: 24px;
-  height: 24px;
+  width: 55px;
+  height: 55px;
   object-fit: contain;
   display: inline-block;
 }
+
 
 /* Task sections */
 .tasks-grid {
