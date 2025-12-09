@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
 
 :root {
-  --easy: #4ade80;
-  --medium: #facc15;
-  --hard: #f87171;
-  --aoe: #38bdf8; /* Critical / AoE color */
+  --easy: #398d58;
+  --medium: #c25959;
+  --hard: #9b0101;
+  --aoe: #267496; /* Critical / AoE color */
   --hp-bg: #4b1307;
   --hp-fill: #f97316;
   --hp-fill-defeated: #22c55e;
