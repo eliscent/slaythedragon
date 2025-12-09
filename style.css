@@ -347,6 +347,10 @@ td:last-child {
   z-index: 10;
 }
 
+#quest-modal.hidden {
+  display: none;
+}
+
 .modal-inner {
   border: 2px solid #3b2f2f;
   border-radius: 12px;
