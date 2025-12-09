@@ -1,14 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
 
 :root {
   --easy: #398d58;
   --medium: #c25959;
   --hard: #9b0101;
-  --aoe: #267496; /* Critical / AoE color */
+  --aoe: #267496;
   --hp-bg: #4b1307;
   --hp-fill: #f97316;
   --hp-fill-defeated: #22c55e;
-  /* slightly darker, warmer parchment */
   --parchment: #e9d6b5;
   --parchment-dark: #d4b98b;
   --ink: #3b2f2f;
@@ -29,6 +28,18 @@ body {
   color: var(--ink);
   background: radial-gradient(circle at top, #3c2b2b 0, #1c1414 45%, #0c0707 100%);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* APPLY IM FELL ENGLISH SC TO TITLES + ACCENTS */
+.page-title,
+.card-title,
+.tasks-card-title,
+.tasks-card-tag,
+#roll-btn,
+#reset-dragon,
+.modal-inner h3,
+.modal-actions button {
+  font-family: 'IM Fell English SC', serif !important;
 }
 
 .page-frame {
@@ -61,7 +72,6 @@ body {
 }
 
 .page-title {
-  font-family: 'MedievalSharp', cursive;
   font-size: 2.4rem;
   margin: 0;
   letter-spacing: 0.04em;
@@ -88,7 +98,6 @@ body {
   padding: 0.9rem 1rem 1rem;
   position: relative;
 
-  /* parchment + texture */
   background-color: var(--parchment-dark);
   background-image: var(--paper-texture);
   background-repeat: repeat;
@@ -98,7 +107,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: 'MedievalSharp', cursive;
   font-size: 1.1rem;
   margin-bottom: 0.4rem;
 }
@@ -167,7 +175,6 @@ body {
   width: 100%;
   background: var(--hp-fill);
   transition: width 0.25s ease-out, background-color 0.15s ease-out, box-shadow 0.15s ease-out;
-  box-shadow: none;
 }
 
 .hp-bar-inner.defeated {
@@ -226,7 +233,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'MedievalSharp', cursive;
   padding: 0;
 }
 
@@ -241,15 +247,13 @@ body {
   display: inline-block;
 }
 
-
 /* Task sections */
 .tasks-grid {
   display: grid;
-  grid-template-columns: 1fr;  /* default: 1 column */
+  grid-template-columns: 1fr;
   gap: 1rem;
 }
 
-/* On wider screens, show 2 columns max */
 @media (min-width: 720px) {
   .tasks-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -260,9 +264,7 @@ body {
   border-radius: 12px;
   border: 1px solid rgba(0, 0, 0, 0.25);
   padding: 0.9rem 1rem 1rem;
-  min-height: 0;
 
-  /* parchment + texture */
   background-color: var(--parchment-dark);
   background-image: var(--paper-texture);
   background-repeat: repeat;
@@ -276,7 +278,6 @@ body {
 }
 
 .tasks-card-title {
-  font-family: 'MedievalSharp', cursive;
   font-size: 1rem;
   display: flex;
   align-items: center;
@@ -346,10 +347,6 @@ td:last-child {
   z-index: 10;
 }
 
-#quest-modal.hidden {
-  display: none;
-}
-
 .modal-inner {
   border: 2px solid #3b2f2f;
   border-radius: 12px;
@@ -359,7 +356,6 @@ td:last-child {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
   text-align: center;
 
-  /* parchment + texture */
   background-color: var(--parchment);
   background-image: var(--paper-texture);
   background-repeat: repeat;
@@ -369,7 +365,6 @@ td:last-child {
   margin-top: 0;
   margin-bottom: 0.5rem;
   font-size: 1.3rem;
-  font-family: 'MedievalSharp', cursive;
 }
 
 .modal-inner p {
@@ -392,7 +387,6 @@ td:last-child {
   border: 1px solid #3b2f2f;
   background: #fff4d4;
   cursor: pointer;
-  font-family: 'MedievalSharp', cursive;
   font-size: 0.85rem;
 }
 
@@ -414,7 +408,7 @@ td:last-child {
 .badge.easy { border-color: var(--easy); color: var(--easy); }
 .badge.medium { border-color: var(--medium); color: var(--medium); }
 .badge.hard { border-color: var(--hard); color: var(--hard); }
-.badge.aoe { border-color: var(--aoe); color: var(--aoe); }
+.badge.aoe { border-color: var(--aoe); }
 
 @media (max-width: 640px) {
   .page-frame {
